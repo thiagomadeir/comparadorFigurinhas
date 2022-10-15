@@ -61,10 +61,11 @@ class MainActivity : AppCompatActivity() {
         val userOne = userOne.getMainUserValues()
         val userTwo = userTwo.getGuestUserValues()
 
-        Log.e("userOne", userOne.toString())
-        Log.e("userTwo", userTwo.toString())
+        val resultOne = CompareFigures.compare(userOne.missing, userTwo.repeated)
+        val resultTwo = CompareFigures.compare(userTwo.missing, userOne.repeated)
 
-        //Todo comparacao entre listas
+        Log.e("resultOne", resultOne.toString())
+        Log.e("resultTwo", resultTwo.toString())
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
