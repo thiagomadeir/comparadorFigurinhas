@@ -56,16 +56,31 @@ class UserInputView @JvmOverloads constructor(
 
     private fun fillList(values: String): List<String> {
 
-        Log.e("hello", values)
+        val lines = getLines(values)
+        Log.e("hello lines", lines.toString())
 
-        val array = values.split(" ")
+        val resultList = mutableListOf<String>()
+
+        lines.forEach {
+            val line = processLine(it)
+            resultList.addAll(line)
+        }
+
+        Log.e("hello result", resultList.toString())
+
+        return resultList
+    }
+
+    private fun processLine(it: String): List<String> {
+        val array = it.split(" ")
         val teamCode = array[0]
         val teamNumbers = array.subList(1, array.size)
-        val result = teamNumbers.map { teamCode + it }
+        return teamNumbers.map { teamCode + it }
+    }
 
-        Log.e("hello result", result.toString())
-
-        return result
+    private fun getLines(values: String): List<String> {
+        Log.e("hello values", values)
+        return values.split("\n")
     }
 
     fun setRepeatValue(repeat: String) {
