@@ -7,13 +7,9 @@ object CompareFigures {
 
         missing.forEach { m ->
             val contain = repeat.contains(m)
-            val startWith = repeat.filter { r -> r.startsWith(m) || r.contains(m) }
+
             if (contain) {
                 result.add(m)
-            } else {
-                if (startWith.isNotEmpty()) {
-                    result.addAll(startWith)
-                }
             }
         }
 
