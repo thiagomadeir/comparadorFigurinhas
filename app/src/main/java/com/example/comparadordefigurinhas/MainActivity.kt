@@ -1,48 +1,61 @@
 package com.example.comparadordefigurinhas
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-
+import androidx.appcompat.app.AppCompatActivity
+import com.example.comparadordefigurinhas.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var editText: EditText
-    lateinit var textView: TextView
-    lateinit var button: Button
+    lateinit var binding: ActivityMainBinding
 
-
+    private val userOne by lazy { binding.mainLayout.userOne }
+    private val userTwo by lazy { binding.mainLayout.userTwo }
+    private val button by lazy { binding.mainLayout.btnSave }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = ActivityMainBinding.inflate(
+            LayoutInflater.from(this)
+        )
+
+        setContentView(binding.root)
+
         setSupportActionBar(toolbar)
+        setListeners()
+        setFakeInput()
+    }
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
+    private fun setFakeInput() {
+        userOne.setRepeatValue(
+            "FWC 4 5 12 14 28\n" +
+                    "KOR 9 8 \n" +
+                    "URU 6 7 9 12 15 19 \n" +
+                    "GHA 7 11 15 19\n" +
+                    "POR 4 8 11 17 20"
+        )
 
+        userOne.setMissingValue(
+            "FWC 1 15 16 18 21 23 27\n" +
+                    "QAT 12 14 16 17 19\n" +
+                    "ECU 1 4 6 15\n" +
+                    "SEN 5 19 20"
+        )
+    }
 
-        editText = findViewById(R.id.repetidas1)
-
-        textView = findViewById(R.id.txtViewTest)
-        button = findViewById(R.id.btnSalvar)
-
-
-
+    private fun setListeners() {
         button.setOnClickListener {
-           var texto = editText.text.toString()
-            textView.text = texto
+            onClickSave()
         }
+    }
 
-
+    private fun onClickSave() {
+        userOne.showValues()
+        userTwo.showValues()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
