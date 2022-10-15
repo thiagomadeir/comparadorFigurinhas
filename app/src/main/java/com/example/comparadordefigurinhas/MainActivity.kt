@@ -54,8 +54,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onClickSave() {
-        userOne.showValues()
-        userTwo.showValues()
+        val userOne = userOne.showValues()
+        val userTwo = userTwo.showValues()
+
+        //Todo comparacao entre listas
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

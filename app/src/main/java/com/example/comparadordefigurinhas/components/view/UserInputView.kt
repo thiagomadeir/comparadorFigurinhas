@@ -45,13 +45,14 @@ class UserInputView @JvmOverloads constructor(
         }
     }
 
-    fun showValues() {
+    fun showValues(): User {
 
         val missing = fillList(missingView.text.toString())
         val repeat = fillList(repeatView.text.toString())
 
-        val user = User(missing, repeat)
+        val user = User(repeat, missing)
         Log.e("hello", user.toString())
+        return user
     }
 
     private fun fillList(values: String): List<String> {
