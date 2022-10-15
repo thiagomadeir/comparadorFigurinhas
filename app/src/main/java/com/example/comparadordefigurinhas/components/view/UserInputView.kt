@@ -45,14 +45,19 @@ class UserInputView @JvmOverloads constructor(
         }
     }
 
-    fun showValues(): User {
+    fun getMainUserValues(): User {
 
         val missing = fillList(missingView.text.toString())
         val repeat = fillList(repeatView.text.toString())
 
-        val user = User(repeat, missing)
-        Log.e("hello", user.toString())
-        return user
+        return User(repeat, missing)
+    }
+
+    fun getGuestUserValues(): User {
+        val missing = processGuestLine(missingView.text.toString(), ", ")
+        val repeat = processGuestLine(repeatView.text.toString(), ", ")
+
+        return User(repeat, missing)
     }
 
     private fun fillList(values: String): List<String> {
@@ -72,11 +77,15 @@ class UserInputView @JvmOverloads constructor(
         return resultList
     }
 
-    private fun processLine(it: String): List<String> {
-        val array = it.split(" ")
+    private fun processLine(it: String, splitPattern: String = " "): List<String> {
+        val array = it.split(splitPattern)
         val teamCode = array[0]
         val teamNumbers = array.subList(1, array.size)
         return teamNumbers.map { teamCode + it }
+    }
+
+    private fun processGuestLine(it: String, splitPattern: String = " "): List<String> {
+        return it.split(splitPattern)
     }
 
     private fun getLines(values: String): List<String> {

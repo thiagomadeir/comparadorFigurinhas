@@ -1,6 +1,7 @@
 package com.example.comparadordefigurinhas
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
@@ -45,6 +46,9 @@ class MainActivity : AppCompatActivity() {
                     "ECU 1 4 6 15\n" +
                     "SEN 5 19 20"
         )
+
+        userTwo.setMissingValue("FWC2, FWC4, FWC5, FWC10, FWC13, QAT2, QAT4, QAT6, QAT7, QAT8, QAT13, QAT16, QAT20, ECU2, ECU3, ECU5, ECU7, ECU8, ECU13, ECU17, ECU19, ECU20")
+        userTwo.setRepeatValue("FWC3, FWC7(3), FWC14, FWC18, QAT9(2), QAT12(2), QAT17(2), ECU15, ECU16(2), SEN6, SEN9(2), SEN14, SEN18, NED12, NED13, NED14(2), NED15, NED19, ENG2, ENG3, ENG9")
     }
 
     private fun setListeners() {
@@ -54,8 +58,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onClickSave() {
-        val userOne = userOne.showValues()
-        val userTwo = userTwo.showValues()
+        val userOne = userOne.getMainUserValues()
+        val userTwo = userTwo.getGuestUserValues()
+
+        Log.e("userOne", userOne.toString())
+        Log.e("userTwo", userTwo.toString())
 
         //Todo comparacao entre listas
     }
