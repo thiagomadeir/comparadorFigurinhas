@@ -7,6 +7,8 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.example.comparadordefigurinhas.databinding.ActivityMainBinding
+import com.example.comparadordefigurinhas.viewmodel.MainViewModel
+import com.example.comparadordefigurinhas.viewmodel.viewstate.ViewState
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -16,6 +18,8 @@ class MainActivity : AppCompatActivity() {
     private val userOne by lazy { binding.mainLayout.userOne }
     private val userTwo by lazy { binding.mainLayout.userTwo }
     private val button by lazy { binding.mainLayout.btnSave }
+
+    private val viewModel: MainViewModel by lazy { MainViewModel() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,8 +31,33 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(toolbar)
+        setObservable()
         setListeners()
         setFakeInput()
+    }
+
+    private fun setObservable() {
+        viewModel.figuresViewState.observe(this) {
+            handleFiguresResponse(it)
+        }
+    }
+
+    private fun handleFiguresResponse(state: ViewState<Pair<List<String>, List<String>>>?) {
+        when (state) {
+            is ViewState.Success -> {
+                Log.e("resultOne", state.data.first.toString())
+                Log.e("resultTwo", state.data.second.toString())
+            }
+            else -> {
+                Log.e("hello", "something wrong happened")
+            }
+        }
+    }
+
+    private fun setListeners() {
+        button.setOnClickListener {
+            onClickSave()
+        }
     }
 
     private fun setFakeInput() {
@@ -51,21 +80,11 @@ class MainActivity : AppCompatActivity() {
         userTwo.setRepeatValue("FWC3, FWC7(3), FWC14, FWC18, QAT9(2), QAT12(2), QAT17(2), ECU15, ECU16(2), SEN6, SEN9(2), SEN14, SEN18, NED12, NED13, NED14(2), NED15, NED19, ENG2, ENG3, ENG9")
     }
 
-    private fun setListeners() {
-        button.setOnClickListener {
-            onClickSave()
-        }
-    }
-
     private fun onClickSave() {
         val userOne = userOne.getMainUserValues()
         val userTwo = userTwo.getGuestUserValues()
 
-        val resultOne = CompareFigures.compare(userOne.missing, userTwo.repeated)
-        val resultTwo = CompareFigures.compare(userTwo.missing, userOne.repeated)
-
-        Log.e("resultOne", resultOne.toString())
-        Log.e("resultTwo", resultTwo.toString())
+        viewModel.compareFigures(userOne, userTwo)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
