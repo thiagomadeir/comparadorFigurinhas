@@ -60,6 +60,11 @@ class MainActivity : AppCompatActivity() {
     private fun onClickSave() {
         val userOne = userOne.getMainUserValues()
         val userTwo = userTwo.getGuestUserValues()
+        Log.e("User 1 faltantes", userOne.missing.toString())
+        Log.e("User 1 repetidas", userOne.repeated.toString())
+
+        Log.e("User 2 faltantes", userTwo.missing.toString())
+        Log.e("User 2 repetidas", userTwo.repeated.toString())
 
         val resultOne = CompareFigures.compare(userOne.missing, userTwo.repeated)
         val resultTwo = CompareFigures.compare(userTwo.missing, userOne.repeated)

@@ -85,7 +85,21 @@ class UserInputView @JvmOverloads constructor(
     }
 
     private fun processGuestLine(it: String, splitPattern: String = " "): List<String> {
-        return it.split(splitPattern)
+        Log.e("hello user guest", it)
+
+        var list = it.split(splitPattern)
+
+        val tratatedList = mutableListOf<String>()
+
+        list.forEach { m ->
+            if(m.contains("(")) {
+                tratatedList.add(m.replaceRange(m.indexOf("("), m.indexOf(")") +1, ""))
+            }
+            else {
+                tratatedList.add(m)
+            }
+        }
+        return tratatedList
     }
 
     private fun getLines(values: String): List<String> {
