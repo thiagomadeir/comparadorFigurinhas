@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Comparador de Figurinhas</string>
     <string name="action_settings">Settings</string>
+    <string name="str_repeat">Repetidas</string>
+    <string name="str_missing">Faltantes</string>
+    <string name="str_save">Salvar</string>
+    <string name="str_user_one_title">User 1</string>
+    <string name="str_user_two_title">User 2</string>
 </resources>

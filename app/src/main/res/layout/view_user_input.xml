@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/user_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="User1" />
+
+    <EditText
+        android:id="@+id/repeat"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="@string/str_repeat"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="@+id/user_title"
+        app:layout_constraintStart_toStartOf="@+id/user_title"
+        app:layout_constraintTop_toBottomOf="@+id/user_title" />
+
+    <EditText
+        android:id="@+id/missing"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="@string/str_missing"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="@+id/repeat"
+        app:layout_constraintStart_toStartOf="@+id/repeat"
+        app:layout_constraintTop_toBottomOf="@+id/repeat" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
